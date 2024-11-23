@@ -1,4 +1,4 @@
-name: Java CI with Gradle2133
+name: Java CI with Gradle
 
 on:
   push:
@@ -80,7 +80,7 @@ jobs:
         
       - name: 5.Build with Gradle
         run: ./gradlew build -x test
-
+      
       - name: 6.Docker 디렉토리로 jar 파일 복사
         run: |
           mkdir -p xinfra/docker/build/libs/
@@ -100,13 +100,12 @@ jobs:
       - name: 9.Docker Push
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/istory:${{ env.DOCKER_TAG }}
-      
       # 서비스 리포지토리 체크아웃
       - name: 10.서비스 리포지토리 체크아웃
         uses: actions/checkout@v4
         with:
-          repository: wlrjs111/istory-service  
-          ref: main
+          repository: wlrjs111-s-inc/istory-service   # 바꾸기
+          ref: main # 바꾸기
           path: .
       
       # 이미지 태그 업데이트
@@ -123,9 +122,9 @@ jobs:
       # 변경사항 커밋 및 푸시
       - name: 12.서비스 리포지토리 변경사항 커밋 및 푸시
         run: |
-          git config --global user.name 'wlrjs111'
-          git config --global user.email 'dangtong@gmail.com'
+          git config --global user.name 'wlrjs111' # 바꾸기
+          git config --global user.email 'dangtong@gmail.com' # 바꾸기
           git commit -am "Update image tag to ${{ env.DOCKER_TAG }}"
-          git remote set-url origin https://${{ secrets.PAT }}@github.com/wlrjs111/istory-service.git
+          git remote set-url origin https://${{ secrets.PAT }}@github.com/wlrjs111-s-inc/istory-service.git # 바꾸기 
           
           git push origin main
