@@ -1,4 +1,4 @@
-name: Java CI with Gradle23
+name: Java CI with Gradle233
 
 on:
   push:
